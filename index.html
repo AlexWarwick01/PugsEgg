@@ -41,9 +41,18 @@
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(500, 400);
         document.body.appendChild(renderer.domElement);
+        var points = [];
+        for ( var deg = 0; deg <= 180; deg += 6 ) {
 
-        var geometry = new THREE.SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
-        var material = new THREE.MeshNormalMaterial();
+            var rad = Math.PI * deg / 180;
+            // the "egg equation"
+            var point = new THREE.Vector2( ( 0.72 + .08 * Math.cos( rad ) ) * Math.sin( rad ), - Math.cos( rad ) ); 
+            points.push( point );
+
+        }
+
+        geometry = new THREE.LatheBufferGeometry( points, 32 );
+        var material = new THREE.MeshBasicMaterial( {color: 0xf0ead6});
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
